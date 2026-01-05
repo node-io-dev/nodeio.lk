@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
     <title>Node.io</title>
 
     <!-- Tailwind CSS -->
@@ -58,19 +58,33 @@
     <style>
         * {
             box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
         html {
             overflow-x: hidden;
-            max-width: 100%;
+            width: 100%;
+            height: 100%;
         }
 
         body {
             background-color: #fafaf9;
             color: #1c1917;
             overflow-x: hidden;
-            max-width: 100%;
+            width: 100%;
+            min-height: 100vh;
             position: relative;
+        }
+
+        /* Responsive container */
+        .responsive-container {
+            width: 100%;
+            max-width: 1280px;
+            margin-left: auto;
+            margin-right: auto;
+            padding-left: clamp(1rem, 3vw, 2rem);
+            padding-right: clamp(1rem, 3vw, 2rem);
         }
 
         .glass-panel {
@@ -83,16 +97,9 @@
             position: relative;
             width: 100%;
             max-width: 600px;
-            height: 350px;
-            max-height: 400px;
+            height: clamp(300px, 50vh, 400px);
             margin-left: auto;
             margin-right: auto;
-        }
-
-        @media (min-width: 768px) {
-            .chart-container {
-                height: 400px;
-            }
         }
 
         .nav-active {
@@ -176,15 +183,59 @@
             animation-delay: 2s;
         }
 
-        @media (max-width: 768px) {
+        /* Hero section responsive */
+        #hero {
+            min-height: clamp(600px, 80vh, 900px);
+        }
+
+        /* Responsive typography */
+        .hero-title {
+            font-size: clamp(2rem, 5vw, 4.5rem);
+            line-height: 1.2;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1rem, 2vw, 1.25rem);
+        }
+
+        .section-title {
+            font-size: clamp(1.75rem, 4vw, 2.5rem);
+        }
+
+        /* Better spacing for all screen sizes */
+        section {
+            width: 100%;
+            max-width: 100%;
+            overflow-x: hidden;
+            padding-top: clamp(3rem, 8vh, 5rem);
+            padding-bottom: clamp(3rem, 8vh, 5rem);
+        }
+
+        /* Service grid responsive */
+        #services-grid {
+            width: 100%;
+            display: grid;
+            gap: clamp(1rem, 2vw, 1.5rem);
+        }
+
+        /* Desktop specific fixes */
+        @media (min-width: 1024px) {
+            .service-card.inactive {
+                opacity: 0.5;
+                filter: grayscale(0.3);
+            }
+
+            .service-card.active {
+                transform: translateY(-8px);
+                box-shadow: 0 20px 40px rgba(136, 85, 187, 0.2);
+            }
+        }
+
+        /* Tablet and mobile */
+        @media (max-width: 1023px) {
             button, a {
                 min-height: 44px;
                 min-width: 44px;
-            }
-            
-            .mobile-spacing {
-                padding-left: 1rem;
-                padding-right: 1rem;
             }
 
             .service-card.inactive {
@@ -195,6 +246,18 @@
             .service-card.active {
                 transform: translateY(0);
                 box-shadow: 0 10px 30px rgba(136, 85, 187, 0.15);
+            }
+
+            /* Hide desktop social sidebar on mobile/tablet */
+            .desktop-social-sidebar {
+                display: none !important;
+            }
+        }
+
+        /* Only show desktop sidebar on large screens */
+        @media (min-width: 1280px) {
+            .desktop-social-sidebar {
+                display: flex !important;
             }
         }
 
@@ -223,22 +286,27 @@
             overflow-x: hidden;
         }
 
-        section {
-            width: 100%;
-            max-width: 100%;
+        /* Prevent horizontal scroll */
+        html, body {
+            max-width: 100vw;
             overflow-x: hidden;
         }
-        
-        #services-grid {
-            width: 100%;
+
+        /* Fix for zoom levels */
+        @media (min-resolution: 120dpi) {
+            body {
+                zoom: 1;
+                -moz-transform: scale(1);
+                -moz-transform-origin: 0 0;
+            }
         }
     </style>
 </head>
 
 <body class="antialiased font-sans text-gray-900 selection:bg-brand-accent selection:text-white">
 
-    <!-- Social Media Fixed Sidebar (Desktop) -->
-    <div class="hidden lg:flex fixed left-6 top-1/2 transform -translate-y-1/2 z-40 flex-col gap-4">
+    <!-- Social Media Fixed Sidebar (Desktop Only - Large Screens) -->
+    <div class="desktop-social-sidebar hidden fixed left-6 top-1/2 transform -translate-y-1/2 z-40 flex-col gap-4">
         <a href="mailto:ionode25@gmail.com" 
            class="social-icon w-12 h-12 rounded-full bg-white shadow-lg flex items-center justify-center text-brand-700 hover:bg-brand-700 hover:text-white border border-brand-100"
            aria-label="Email">
@@ -337,19 +405,19 @@
     <main class="pt-16">
 
         <!-- HERO SECTION -->
-        <section id="hero" class="min-h-[80vh] flex items-center justify-center relative overflow-hidden vanta-bg">
+        <section id="hero" class="flex items-center justify-center relative overflow-hidden vanta-bg">
             <div class="absolute inset-0 bg-gradient-to-b from-transparent to-brand-50/80"></div>
 
-            <div class="relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center z-10">
+            <div class="relative responsive-container text-center z-10 py-12">
                 <span
                     class="inline-block py-2 px-4 rounded-full bg-brand-100 text-brand-800 text-xs font-bold tracking-wider mb-6"
                     data-aos="fade-down">SRI LANKA'S EMERGING TECH POWERHOUSE</span>
-                <h1 class="text-4xl md:text-6xl lg:text-7xl font-display font-bold text-gray-900 mb-6 leading-tight"
+                <h1 class="hero-title font-display font-bold text-gray-900 mb-6 leading-tight"
                     data-aos="fade-up" data-aos-delay="100">
                     <span class="block mb-2 gradient-text">CONNECTING IDEAS.</span>
                     <span class="block text-gray-900">BUILDING SOLUTIONS</span>
                 </h1>
-                <p class="mt-6 max-w-2xl mx-auto text-lg md:text-xl text-gray-700 leading-relaxed px-4" data-aos="fade-up" data-aos-delay="200">
+                <p class="hero-subtitle max-w-2xl mx-auto text-gray-700 leading-relaxed px-4" data-aos="fade-up" data-aos-delay="200">
                     From Custom Web & Mobile Apps to AI-Driven Automation. We are Node.io — building the
                     digital infrastructure for Sri Lankan businesses to scale globally.
                 </p>
@@ -368,10 +436,10 @@
         </section>
 
         <!-- SERVICES SECTION -->
-        <section id="services" class="py-16 md:py-20 bg-white overflow-hidden">
-            <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <section id="services" class="bg-white overflow-hidden">
+            <div class="responsive-container">
                 <div class="text-center mb-12 md:mb-16" data-aos="fade-up">
-                    <h2 class="text-3xl md:text-4xl font-display font-bold text-gray-900 mb-4">The NODE.io Ecosystem</h2>
+                    <h2 class="section-title font-display font-bold text-gray-900 mb-4">The NODE.io Ecosystem</h2>
                     <p class="mt-4 text-gray-600 text-base md:text-lg max-w-2xl mx-auto leading-relaxed px-4">
                         We don't just build websites; we create integrated digital environments. Explore our
                         comprehensive service suite designed to cover every aspect of your digital presence, from
@@ -386,13 +454,13 @@
         </section>
 
         <!-- ADVANTAGE / PRICING STRATEGY SECTION -->
-        <section id="advantage" class="py-16 md:py-20 bg-brand-50 border-y border-brand-100">
-            <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <section id="advantage" class="bg-brand-50 border-y border-brand-100">
+            <div class="responsive-container">
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
 
                     <!-- Text Content -->
                     <div data-aos="fade-right">
-                        <h2 class="text-3xl md:text-4xl font-display font-bold text-gray-900 mb-6">Optimized for Sri Lankan
+                        <h2 class="section-title font-display font-bold text-gray-900 mb-6">Optimized for Sri Lankan
                             Innovation</h2>
                         <p class="text-gray-600 mb-6 leading-relaxed">
                             Startups and SMEs in Sri Lanka often struggle between expensive corporate agencies and
@@ -455,7 +523,7 @@
         </section>
 
         <!-- AI & AUTOMATION HIGHLIGHT -->
-        <section class="py-16 md:py-20 bg-brand-950 text-white relative overflow-hidden">
+        <section class="bg-brand-950 text-white relative overflow-hidden">
             <div
                 class="absolute top-0 right-0 w-72 h-72 md:w-96 md:h-96 bg-brand-800 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob">
             </div>
@@ -463,10 +531,10 @@
                 class="absolute bottom-0 left-0 w-72 h-72 md:w-96 md:h-96 bg-brand-neon rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-blob animation-delay-2000">
             </div>
 
-            <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="responsive-container relative z-10">
                 <div class="text-center mb-12" data-aos="fade-down">
                     <span class="text-brand-neon font-bold tracking-widest uppercase text-sm">Future Ready</span>
-                    <h2 class="text-3xl md:text-4xl lg:text-5xl font-display font-bold mt-2">AI Integration & RAG Bots</h2>
+                    <h2 class="section-title font-display font-bold mt-2">AI Integration & RAG Bots</h2>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 text-center">
@@ -496,7 +564,7 @@
         </section>
 
         <!-- CONTACT SECTION -->
-        <section id="contact" class="py-16 md:py-20 bg-brand-50">
+        <section id="contact" class="bg-brand-50">
             <div class="w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="bg-white rounded-2xl shadow-xl overflow-hidden" data-aos="fade-up">
                     <div class="grid grid-cols-1 md:grid-cols-2">
@@ -596,6 +664,196 @@
         </section>
 
     </main>
+
+    <!-- FOOTER SECTION - Enhanced -->
+    <footer class="bg-gradient-to-br from-brand-950 via-brand-900 to-brand-950 text-white relative overflow-hidden">
+        <!-- Animated Background Elements -->
+        <div class="absolute inset-0 overflow-hidden pointer-events-none">
+            <div class="absolute top-0 left-1/4 w-96 h-96 bg-brand-800 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
+            <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-brand-neon rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-blob animation-delay-2000"></div>
+        </div>
+
+        <!-- Main Footer Content -->
+        <div class="relative z-10 responsive-container py-16 md:py-20">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+                
+                <!-- Brand Column -->
+                <div class="space-y-6">
+                    <div class="flex items-center gap-3">
+                        <img src="logo-white.png" alt="NODE.io Logo" class="w-12 h-12 object-contain">
+                        <span class="font-display font-bold text-2xl tracking-tight">NODE.io</span>
+                    </div>
+                    <p class="text-gray-300 leading-relaxed text-sm">
+                        Building the digital infrastructure for Sri Lankan businesses to scale globally. From code to creativity, we've got you covered.
+                    </p>
+                    <div class="flex items-center gap-2 text-sm">
+                        <i class="fa-solid fa-location-dot text-brand-neon"></i>
+                        <span class="text-gray-300">Colombo, Sri Lanka</span>
+                    </div>
+                </div>
+
+                <!-- Quick Links Column -->
+                <div>
+                    <h4 class="font-display font-bold text-lg mb-6 text-white">Quick Links</h4>
+                    <ul class="space-y-3">
+                        <li>
+                            <a href="/web-development" class="text-gray-300 hover:text-brand-neon transition-colors duration-300 flex items-center gap-2 group">
+                                <i class="fa-solid fa-code text-brand-400 group-hover:text-brand-neon transition-colors"></i>
+                                <span>Web Development</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/ai-automation" class="text-gray-300 hover:text-brand-neon transition-colors duration-300 flex items-center gap-2 group">
+                                <i class="fa-solid fa-robot text-brand-400 group-hover:text-brand-neon transition-colors"></i>
+                                <span>AI Automation</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/ecommerce-development" class="text-gray-300 hover:text-brand-neon transition-colors duration-300 flex items-center gap-2 group">
+                                <i class="fa-solid fa-shopping-cart text-brand-400 group-hover:text-brand-neon transition-colors"></i>
+                                <span>E-commerce Development</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/social-media-branding" class="text-gray-300 hover:text-brand-neon transition-colors duration-300 flex items-center gap-2 group">
+                                <i class="fa-solid fa-bullhorn text-brand-400 group-hover:text-brand-neon transition-colors"></i>
+                                <span>Social Media & Branding</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Company Column -->
+                <div>
+                    <h4 class="font-display font-bold text-lg mb-6 text-white">Company</h4>
+                    <ul class="space-y-3">
+                        <li>
+                            <button onclick="scrollToSection('hero')" class="text-gray-300 hover:text-brand-neon transition-colors duration-300 flex items-center gap-2">
+                                <i class="fa-solid fa-chevron-right text-xs text-brand-400"></i>
+                                <span>Home</span>
+                            </button>
+                        </li>
+                        <li>
+                            <button onclick="scrollToSection('services')" class="text-gray-300 hover:text-brand-neon transition-colors duration-300 flex items-center gap-2">
+                                <i class="fa-solid fa-chevron-right text-xs text-brand-400"></i>
+                                <span>Services</span>
+                            </button>
+                        </li>
+                        <li>
+                            <button onclick="scrollToSection('advantage')" class="text-gray-300 hover:text-brand-neon transition-colors duration-300 flex items-center gap-2">
+                                <i class="fa-solid fa-chevron-right text-xs text-brand-400"></i>
+                                <span>Our Advantage</span>
+                            </button>
+                        </li>
+                        <li>
+                            <button onclick="scrollToSection('contact')" class="text-gray-300 hover:text-brand-neon transition-colors duration-300 flex items-center gap-2">
+                                <i class="fa-solid fa-chevron-right text-xs text-brand-400"></i>
+                                <span>Contact</span>
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Connect Column -->
+                <div>
+                    <h4 class="font-display font-bold text-lg mb-6 text-white">Connect With Us</h4>
+                    <div class="space-y-4 mb-6">
+                        <a href="mailto:ionode25@gmail.com" 
+                           class="flex items-center gap-3 text-gray-300 hover:text-brand-neon transition-colors duration-300 group">
+                            <div class="w-10 h-10 rounded-lg bg-white/10 group-hover:bg-brand-neon/20 flex items-center justify-center transition-all">
+                                <i class="fa-solid fa-envelope"></i>
+                            </div>
+                            <span class="text-sm">ionode25@gmail.com</span>
+                        </a>
+                    </div>
+                    
+                    <!-- Social Media Icons -->
+                    <div class="space-y-3">
+                        <p class="text-sm text-gray-400 font-semibold uppercase tracking-wider">Follow Us</p>
+                        <div class="flex gap-3">
+                            <a href="https://www.instagram.com/node.io_/" 
+                               target="_blank"
+                               rel="noopener noreferrer"
+                               class="w-12 h-12 rounded-xl bg-white/10 hover:bg-gradient-to-br hover:from-purple-600 hover:to-pink-500 flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-pink-500/50 group"
+                               aria-label="Instagram">
+                                <i class="fa-brands fa-instagram text-lg group-hover:scale-110 transition-transform"></i>
+                            </a>
+                            <a href="https://www.facebook.com/profile.php?id=61583529369023" 
+                               target="_blank"
+                               rel="noopener noreferrer"
+                               class="w-12 h-12 rounded-xl bg-white/10 hover:bg-blue-600 flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-blue-600/50 group"
+                               aria-label="Facebook">
+                                <i class="fa-brands fa-facebook-f text-lg group-hover:scale-110 transition-transform"></i>
+                            </a>
+                            <a href="https://www.tiktok.com/@node_io" 
+                               target="_blank"
+                               rel="noopener noreferrer"
+                               class="w-12 h-12 rounded-xl bg-white/10 hover:bg-gray-900 flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-gray-900/50 group"
+                               aria-label="TikTok">
+                                <i class="fa-brands fa-tiktok text-lg group-hover:scale-110 transition-transform"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Divider -->
+            <div class="border-t border-white/10 mb-8"></div>
+
+            <!-- Bottom Footer -->
+            <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                <div class="text-center md:text-left">
+                    <p class="text-gray-400 text-sm">
+                        © 2025 <span class="text-brand-neon font-semibold">NODE.io</span>. All rights reserved.
+                    </p>
+                    <p class="text-gray-200 text-xs mt-1">
+                        Crafted with <i class="fa-solid fa-heart text-red-400"></i> in Sri Lanka
+                    </p>
+                </div>
+                
+                <!-- Tech Stack Badge -->
+                <div class="flex flex-wrap items-center justify-center gap-3 text-xs text-gray-400">
+                    <span class="flex items-center gap-1.5 px-3 py-1.5 bg-white/5 rounded-lg border border-white/10">
+                        <i class="fa-solid fa-bolt text-yellow-400"></i>
+                        <span>Powered by Innovation</span>
+                    </span>
+                    <span class="flex items-center gap-1.5 px-3 py-1.5 bg-white/5 rounded-lg border border-white/10">
+                        <i class="fa-solid fa-shield-halved text-green-400"></i>
+                        <span>Secure & Reliable</span>
+                    </span>
+                </div>
+            </div>
+
+            <!-- Back to Top Button -->
+            <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" 
+                    class="fixed bottom-8 right-8 w-14 h-14 rounded-full bg-gradient-to-br from-brand-accent to-brand-neon text-white shadow-lg hover:shadow-xl hover:scale-110 transition-all duration-300 flex items-center justify-center z-50 group"
+                    id="back-to-top"
+                    aria-label="Back to top">
+                <i class="fa-solid fa-arrow-up group-hover:translate-y-[-2px] transition-transform"></i>
+            </button>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button Visibility Script -->
+    <script>
+        // Show/hide back to top button based on scroll position
+        const backToTopBtn = document.getElementById('back-to-top');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopBtn.style.opacity = '1';
+                backToTopBtn.style.pointerEvents = 'auto';
+            } else {
+                backToTopBtn.style.opacity = '0';
+                backToTopBtn.style.pointerEvents = 'none';
+            }
+        });
+
+        // Initialize button as hidden
+        backToTopBtn.style.opacity = '0';
+        backToTopBtn.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+    </script>
 
     <!-- JAVASCRIPT LOGIC -->
     <script>
@@ -778,7 +1036,7 @@
                 }
                 
                 // Desktop only: Apply inactive state
-                if (window.innerWidth >= 768) {
+                if (window.innerWidth >= 1024) {
                     card.classList.remove('active');
                     if (activeServiceIndex !== null && idx !== activeServiceIndex) {
                         card.classList.add('inactive');
@@ -803,7 +1061,7 @@
             expandIcon.style.transform = 'rotate(180deg)';
             
             // Desktop only: Apply active/inactive states
-            if (window.innerWidth >= 768) {
+            if (window.innerWidth >= 1024) {
                 clickedCard.classList.add('active');
                 clickedCard.classList.remove('inactive');
                 
@@ -823,7 +1081,7 @@
 
         // Reset states on window resize
         window.addEventListener('resize', () => {
-            if (window.innerWidth < 768) {
+            if (window.innerWidth < 1024) {
                 document.querySelectorAll('.service-card').forEach(card => {
                     card.classList.remove('inactive', 'active');
                 });

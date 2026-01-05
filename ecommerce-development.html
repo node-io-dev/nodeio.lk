@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
     <title>E-Commerce Development — NODE.io</title>
 
     <!-- Tailwind CSS -->
@@ -53,14 +53,27 @@
         html {
             scroll-behavior: smooth;
             overflow-x: hidden;
+            width: 100%;
+            height: 100%;
         }
 
         body {
             font-family: 'Inter', system-ui, sans-serif;
             overflow-x: hidden;
-            max-width: 100vw;
+            width: 100%;
+            min-height: 100vh;
             background: #ffffff;
             color: #0f172a;
+        }
+
+        /* Responsive container */
+        .responsive-container {
+            width: 100%;
+            max-width: 1280px;
+            margin-left: auto;
+            margin-right: auto;
+            padding-left: clamp(1rem, 3vw, 2rem);
+            padding-right: clamp(1rem, 3vw, 2rem);
         }
 
         /* Navigation - Matching index.html */
@@ -75,7 +88,7 @@
         .hero-gradient {
             background: linear-gradient(135deg, #faf5ff 0%, #ffffff 50%, #f3e8ff 100%);
             position: relative;
-            min-height: 85vh;
+            min-height: clamp(600px, 85vh, 900px);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -126,7 +139,7 @@
         }
 
         .hero-title {
-            font-size: clamp(2rem, 6vw, 3.5rem);
+            font-size: clamp(2rem, 5vw, 3.5rem);
             font-weight: 800;
             line-height: 1.15;
             letter-spacing: -0.02em;
@@ -134,6 +147,10 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1rem, 2vw, 1.25rem);
         }
 
         .gradient-text {
@@ -149,7 +166,7 @@
             background: #ffffff;
             border: 1px solid #e9d5ff;
             border-radius: 24px;
-            padding: 32px;
+            padding: clamp(1.5rem, 3vw, 2rem);
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             overflow: visible;
         }
@@ -281,43 +298,6 @@
         .stagger-item:nth-child(4) { animation-delay: 0.4s; }
         .stagger-item:nth-child(5) { animation-delay: 0.5s; }
 
-        * {
-            box-sizing: border-box;
-        }
-
-        html {
-            overflow-x: hidden;
-        }
-
-        body {
-            background-color: #ffffff;
-            color: #1c1917;
-            overflow-x: hidden;
-            font-family: 'Inter', sans-serif;
-        }
-
-        @media (min-width: 768px) {
-            .professional-card {
-                transform: scale(1.05);
-            }
-
-            .professional-card:hover {
-                transform: scale(1.05) translateY(-8px);
-            }
-        }
-
-        @media (max-width: 767px) {
-            .popular-badge {
-                font-size: 11px;
-                padding: 6px 18px;
-            }
-
-            .professional-card {
-                margin-top: 2rem;
-                margin-bottom: 2rem;
-            }
-        }
-        
         @keyframes fadeInUp {
             from {
                 opacity: 0;
@@ -349,7 +329,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 140px;
+            height: clamp(120px, 15vw, 140px);
             border: 1px solid #e9d5ff;
             transition: all 0.3s ease;
         }
@@ -361,12 +341,12 @@
         }
 
         .tech-icon {
-            font-size: 2.5rem;
+            font-size: clamp(2rem, 4vw, 2.5rem);
             margin-bottom: 10px;
         }
 
         .tech-name {
-            font-size: 0.875rem;
+            font-size: clamp(0.75rem, 1.5vw, 0.875rem);
             font-weight: 600;
             color: #1e293b;
             text-align: center;
@@ -393,7 +373,7 @@
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(168, 85, 247, 0.2);
             border-radius: 16px;
-            padding: 32px;
+            padding: clamp(1.5rem, 3vw, 2rem);
             backdrop-filter: blur(10px);
             transition: all 0.4s;
         }
@@ -404,37 +384,66 @@
             transform: translateY(-4px);
         }
 
-        /* Mobile Responsive */
-        @media (max-width: 768px) {
-            .hero-gradient {
-                min-height: 100vh;
-                padding: 0 1rem;
+        /* Section spacing */
+        section {
+            width: 100%;
+            max-width: 100%;
+            overflow-x: hidden;
+            padding-top: clamp(3rem, 8vh, 5rem);
+            padding-bottom: clamp(3rem, 8vh, 5rem);
+        }
+
+        /* Section titles */
+        .section-title {
+            font-size: clamp(1.75rem, 4vw, 2.5rem);
+        }
+
+        /* Desktop specific */
+        @media (min-width: 768px) {
+            .professional-card {
+                transform: scale(1.05);
             }
 
-            .hero-title {
-                font-size: 2rem;
+            .professional-card:hover {
+                transform: scale(1.05) translateY(-8px);
+            }
+        }
+
+        /* Mobile and Tablet */
+        @media (max-width: 767px) {
+            .popular-badge {
+                font-size: 11px;
+                padding: 6px 18px;
             }
 
-            .service-card {
-                padding: 24px;
+            .professional-card {
+                margin-top: 2rem;
+                margin-bottom: 2rem;
+                transform: scale(1);
             }
 
-            .btn-primary, .btn-secondary {
-                padding: 12px 24px;
-                font-size: 14px;
+            .professional-card:hover {
+                transform: translateY(-8px);
             }
 
-            .tech-logo-container {
-                height: 120px;
-                padding: 1rem;
+            button, a {
+                min-height: 44px;
+                min-width: 44px;
             }
+        }
 
-            .tech-icon {
-                font-size: 2rem;
-            }
-            
-            .tech-name {
-                font-size: 0.75rem;
+        /* Prevent horizontal scroll */
+        html, body {
+            max-width: 100vw;
+            overflow-x: hidden;
+        }
+
+        /* Fix for zoom levels */
+        @media (min-resolution: 120dpi) {
+            body {
+                zoom: 1;
+                -moz-transform: scale(1);
+                -moz-transform-origin: 0 0;
             }
         }
     </style>
@@ -488,7 +497,7 @@
         <div class="hero-orb hero-orb-2"></div>
         <div class="hero-orb hero-orb-3"></div>
 
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+        <div class="responsive-container relative z-10 text-center py-12">
             <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-purple-200 shadow-sm mb-6 stagger-item">
                 <div class="w-2 h-2 rounded-full bg-purple-500 animate-pulse"></div>
                 <span class="text-sm font-semibold text-purple-700">Professional E-Commerce</span>
@@ -499,11 +508,11 @@
                 <span class="gradient-text">Start Selling Today</span>
             </h1>
 
-            <p class="text-lg md:text-xl text-slate-600 mb-8 max-w-2xl mx-auto leading-relaxed stagger-item">
+            <p class="hero-subtitle text-slate-600 mb-8 max-w-2xl mx-auto leading-relaxed stagger-item px-4">
                 From simple product catalogs to complex multi-vendor marketplaces, we build e-commerce platforms that drive sales and scale with your business.
             </p>
 
-            <div class="flex flex-col sm:flex-row gap-4 justify-center mb-8 stagger-item">
+            <div class="flex flex-col sm:flex-row gap-4 justify-center mb-8 stagger-item px-4">
                 <a href="#packages" class="btn-primary">
                     View Packages
                     <i class="fa-solid fa-arrow-right ml-2"></i>
@@ -532,9 +541,9 @@
     </section>
 
     <!-- Stats Section -->
-    <section class="py-12 bg-gradient-to-r from-purple-50 to-pink-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+    <section class="bg-gradient-to-r from-purple-50 to-pink-50" style="padding-top: 3rem; padding-bottom: 3rem;">
+        <div class="responsive-container">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 text-center">
                 <div class="p-6 rounded-xl bg-white shadow-sm border border-purple-100 reveal" data-aos="fade-up" data-aos-delay="100">
                     <div class="text-3xl font-bold text-purple-600 mb-2">99.9%</div>
                     <div class="text-sm text-slate-600">Uptime Guarantee</div>
@@ -556,10 +565,10 @@
     </section>
 
     <!-- PACKAGES SECTION -->
-    <section id="packages" class="py-16 md:py-20 bg-white">
-        <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="packages" class="bg-white">
+        <div class="responsive-container">
             <div class="text-center mb-12 md:mb-20" data-aos="fade-up">
-                <h2 class="text-3xl md:text-4xl font-display font-bold text-gray-900 mb-4">E-Commerce Packages</h2>
+                <h2 class="section-title font-display font-bold text-gray-900 mb-4">E-Commerce Packages</h2>
                 <p class="mt-4 text-gray-600 text-base md:text-lg max-w-2xl mx-auto leading-relaxed px-4">
                     Choose the perfect e-commerce solution for your business. All packages include mobile-responsive design and secure payment integration.
                 </p>
@@ -741,18 +750,18 @@
     </section>
 
     <!-- Platforms Section -->
-    <section id="platforms" class="py-16 md:py-20 bg-gradient-to-b from-white to-purple-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="platforms" class="bg-gradient-to-b from-white to-purple-50">
+        <div class="responsive-container">
             <div class="text-center mb-12 reveal">
-                <h2 class="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+                <h2 class="section-title font-bold text-slate-900 mb-4">
                     E-Commerce Platforms <span class="gradient-text">We Work With</span>
                 </h2>
-                <p class="text-lg text-slate-600 max-w-3xl mx-auto">
+                <p class="text-lg text-slate-600 max-w-3xl mx-auto px-4">
                     We specialize in multiple e-commerce platforms to give you the best solution for your needs.
                 </p>
             </div>
 
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 text-center">
                 <div class="tech-logo-container reveal">
                     <i class="fa-brands fa-shopify tech-icon text-green-600"></i>
                     <span class="tech-name">Shopify</span>
@@ -774,15 +783,15 @@
     </section>
 
     <!-- Features Section -->
-    <section id="features" class="ai-section py-16 md:py-20 relative">
+    <section id="features" class="ai-section relative">
         <div class="ai-grid"></div>
         
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="responsive-container relative z-10">
             <div class="text-center mb-12 reveal">
-                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">
+                <h2 class="section-title font-bold text-white mb-4">
                     Powerful <span class="gradient-text" style="text-shadow: 0 0 20px rgba(168, 85, 247, 0.8);">E-Commerce Features</span>
                 </h2>
-                <p class="text-lg text-slate-400 max-w-3xl mx-auto">
+                <p class="text-lg text-slate-400 max-w-3xl mx-auto px-4">
                     Every store we build comes equipped with essential features to maximize your online sales.
                 </p>
             </div>
@@ -884,62 +893,62 @@
     </section>
 
     <!-- Process Section -->
-    <section id="process" class="py-16 md:py-20 bg-white">
+    <section id="process" class="bg-white">
         <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-12 reveal">
-                <h2 class="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+                <h2 class="section-title font-bold text-slate-900 mb-4">
                     Our E-Commerce Development <span class="gradient-text">Process</span>
                 </h2>
-                <p class="text-lg text-slate-600 max-w-3xl mx-auto">
+                <p class="text-lg text-slate-600 max-w-3xl mx-auto px-4">
                     From concept to launch, we guide you through every step of building your online store.
                 </p>
             </div>
 
-            <div class="space-y-8">
+            <div class="space-y-6 md:space-y-8">
                 
-                <div class="flex items-start gap-6 p-6 rounded-2xl bg-purple-50 border border-purple-100 reveal">
+                <div class="flex items-start gap-4 md:gap-6 p-4 md:p-6 rounded-2xl bg-purple-50 border border-purple-100 reveal">
                     <div class="w-12 h-12 flex-shrink-0 rounded-xl bg-purple-600 text-white flex items-center justify-center text-xl font-bold">
                         1
                     </div>
                     <div>
-                        <h3 class="text-xl font-bold text-slate-900 mb-2">Planning & Discovery</h3>
-                        <p class="text-slate-600 leading-relaxed">
+                        <h3 class="text-lg md:text-xl font-bold text-slate-900 mb-2">Planning & Discovery</h3>
+                        <p class="text-slate-600 leading-relaxed text-sm md:text-base">
                             Define goals, products, target audience, and platform selection for your e-commerce store.
                         </p>
                     </div>
                 </div>
 
-                <div class="flex items-start gap-6 p-6 rounded-2xl bg-pink-50 border border-pink-100 reveal">
+                <div class="flex items-start gap-4 md:gap-6 p-4 md:p-6 rounded-2xl bg-pink-50 border border-pink-100 reveal">
                     <div class="w-12 h-12 flex-shrink-0 rounded-xl bg-pink-600 text-white flex items-center justify-center text-xl font-bold">
                         2
                     </div>
                     <div>
-                        <h3 class="text-xl font-bold text-slate-900 mb-2">Design & UI/UX</h3>
-                        <p class="text-slate-600 leading-relaxed">
+                        <h3 class="text-lg md:text-xl font-bold text-slate-900 mb-2">Design & UI/UX</h3>
+                        <p class="text-slate-600 leading-relaxed text-sm md:text-base">
                             Create a stunning, conversion-focused store design with seamless user experience.
                         </p>
                     </div>
                 </div>
 
-                <div class="flex items-start gap-6 p-6 rounded-2xl bg-indigo-50 border border-indigo-100 reveal">
+                <div class="flex items-start gap-4 md:gap-6 p-4 md:p-6 rounded-2xl bg-indigo-50 border border-indigo-100 reveal">
                     <div class="w-12 h-12 flex-shrink-0 rounded-xl bg-indigo-600 text-white flex items-center justify-center text-xl font-bold">
                         3
                     </div>
                     <div>
-                        <h3 class="text-xl font-bold text-slate-900 mb-2">Development & Integration</h3>
-                        <p class="text-slate-600 leading-relaxed">
+                        <h3 class="text-lg md:text-xl font-bold text-slate-900 mb-2">Development & Integration</h3>
+                        <p class="text-slate-600 leading-relaxed text-sm md:text-base">
                             Build your store with secure payment gateways, inventory systems, and essential integrations.
                         </p>
                     </div>
                 </div>
 
-                <div class="flex items-start gap-6 p-6 rounded-2xl bg-blue-50 border border-blue-100 reveal">
+                <div class="flex items-start gap-4 md:gap-6 p-4 md:p-6 rounded-2xl bg-blue-50 border border-blue-100 reveal">
                     <div class="w-12 h-12 flex-shrink-0 rounded-xl bg-blue-600 text-white flex items-center justify-center text-xl font-bold">
                         4
                     </div>
                     <div>
-                        <h3 class="text-xl font-bold text-slate-900 mb-2">Testing & Launch</h3>
-                        <p class="text-slate-600 leading-relaxed">
+                        <h3 class="text-lg md:text-xl font-bold text-slate-900 mb-2">Testing & Launch</h3>
+                        <p class="text-slate-600 leading-relaxed text-sm md:text-base">
                             Thorough testing of checkout, payments, and user experience before launching your store.
                         </p>
                     </div>
@@ -950,21 +959,21 @@
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="ai-section py-16 md:py-20 relative">
+    <section id="contact" class="ai-section relative">
         <div class="ai-grid"></div>
         
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="text-center mb-12 reveal">
-                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">
+                <h2 class="section-title font-bold text-white mb-4">
                     Ready to <span class="gradient-text" style="text-shadow: 0 0 20px rgba(168, 85, 247, 0.8);">Launch Your Online Store?</span>
                 </h2>
-                <p class="text-lg text-slate-400 max-w-3xl mx-auto">
+                <p class="text-lg text-slate-400 max-w-3xl mx-auto px-4">
                     Get a custom quote tailored to your business needs. Our team will help you choose the right package and features.
                 </p>
             </div>
 
             <div class="text-center reveal">
-                <div class="flex flex-col sm:flex-row gap-4 justify-center mb-10">
+                <div class="flex flex-col sm:flex-row gap-4 justify-center mb-10 px-4">
                     <a href="mailto:ionode25@gmail.com" class="btn-primary text-center">
                         <i class="fa-solid fa-envelope mr-2"></i>
                         Get a Quote Now
@@ -1026,7 +1035,7 @@
 
     <!-- Footer -->
     <footer class="bg-slate-900 py-8">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="responsive-container">
             <div class="flex flex-col md:flex-row justify-between items-center gap-4">
                 <a href="index.html" class="flex-shrink-0 flex items-center gap-2">
                     <img src="logo-white.png" alt="NODE.io Logo" class="w-10 h-10 object-contain">
