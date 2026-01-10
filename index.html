@@ -4,48 +4,238 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="NODE.io - Sri Lanka's Emerging Tech Powerhouse. Web Development, AI Automation, and Mobile Apps.">
     <title>Node.io</title>
-    <link rel="icon" type="image/x-icon" href="logo-white.webp">
+    <link rel="icon" type="image/x-icon" href="logo-white.webp"> 
 
-    <link rel="preconnect" href="https://cdn.tailwindcss.com">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- DNS Prefetch for faster CDN loading -->
+    <link rel="dns-prefetch" href="https://cdn.tailwindcss.com">
     <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
     <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
     <link rel="dns-prefetch" href="https://unpkg.com">
+    <link rel="preconnect" href="https://cdn.tailwindcss.com">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
 
-    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <!-- Configuration -->
     <script>
         tailwind.config = {
             theme: {
                 extend: {
-                    fontFamily: { sans: ['Outfit', 'sans-serif'], display: ['Space Grotesk', 'sans-serif'] },
-                    colors: { brand: { 50: '#F8F3FB', 100: '#F0E7F7', 200: '#E1CFEF', 300: '#D2B7E7', 400: '#C39FDF', 500: '#B487D7', 600: '#9966CC', 700: '#8855BB', 800: '#7744AA', 900: '#5A338C', 950: '#3D226E', accent: '#8855BB', hover: '#9966CC', neon: '#A76FE8' } }
+                    fontFamily: {
+                        sans: ['Outfit', 'sans-serif'],
+                        display: ['Space Grotesk', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#F8F3FB',
+                            100: '#F0E7F7',
+                            200: '#E1CFEF',
+                            300: '#D2B7E7',
+                            400: '#C39FDF',
+                            500: '#B487D7',
+                            600: '#9966CC',
+                            700: '#8855BB',
+                            800: '#7744AA',
+                            900: '#5A338C',
+                            950: '#3D226E',
+                            accent: '#8855BB',
+                            hover: '#9966CC',
+                            neon: '#A76FE8',
+                        }
+                    }
                 }
             }
         }
     </script>
 
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-
     <style>
-        /* Critical CSS */
-        body { background-color: #fafaf9; color: #1c1917; overflow-x: hidden; }
-        .glass-panel { background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(12px); border: 1px solid rgba(231, 229, 228, 0.5); }
-        .chart-container { position: relative; width: 100%; max-width: 600px; height: 350px; margin: 0 auto; }
-        .gradient-text { background: linear-gradient(135deg, #7744AA, #8855BB, #A76FE8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-        .gradient-bg { background: linear-gradient(135deg, #7744AA, #8855BB, #A76FE8); }
-        .vanta-bg { min-height: 80vh; background: #fafaf9; } /* Fallback color */
-        /* Animation Classes */
-        @keyframes blob { 0%, 100% { transform: translate(0, 0) scale(1); } 33% { transform: translate(30px, -50px) scale(1.1); } 66% { transform: translate(-20px, 20px) scale(0.9); } }
-        .animate-blob { animation: blob 7s infinite; }
-        .animation-delay-2000 { animation-delay: 2s; }
-        .service-card { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
-        .sub-services-container { max-height: 0; overflow: hidden; transition: max-height 0.4s ease-in-out; }
-        .sub-services-container.expanded { max-height: 2000px; }
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            overflow-x: hidden;
+            max-width: 100%;
+        }
+
+        body {
+            background-color: #fafaf9;
+            color: #1c1917;
+            overflow-x: hidden;
+            max-width: 100%;
+            position: relative;
+        }
+
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(231, 229, 228, 0.5);
+        }
+
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            height: 350px;
+            max-height: 400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+
+        .nav-active {
+            border-bottom: 2px solid #8855BB;
+            color: #8855BB;
+        }
+
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #7744AA, #8855BB, #A76FE8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .gradient-bg {
+            background: linear-gradient(135deg, #7744AA, #8855BB, #A76FE8);
+        }
+
+        .social-icon {
+            transition: all 0.3s ease;
+        }
+
+        .social-icon:hover {
+            transform: translateY(-4px);
+        }
+
+        .service-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .service-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .service-card.inactive {
+            opacity: 0.5;
+            filter: grayscale(0.3);
+        }
+
+        .service-card.active {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(136, 85, 187, 0.2);
+            border-color: #8855BB;
+            z-index: 10;
+            position: relative;
+        }
+
+        .service-expand-icon {
+            transition: transform 0.3s ease;
+        }
+
+        @keyframes blob {
+            0% {
+                transform: translate(0px, 0px) scale(1);
+            }
+            33% {
+                transform: translate(30px, -50px) scale(1.1);
+            }
+            66% {
+                transform: translate(-20px, 20px) scale(0.9);
+            }
+            100% {
+                transform: translate(0px, 0px) scale(1);
+            }
+        }
+
+        .animate-blob {
+            animation: blob 7s infinite;
+        }
+
+        .animation-delay-2000 {
+            animation-delay: 2s;
+        }
+
+        @media (max-width: 768px) {
+            button, a {
+                min-height: 44px;
+                min-width: 44px;
+            }
+            
+            .mobile-spacing {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+
+            .service-card.inactive {
+                opacity: 1;
+                filter: none;
+            }
+
+            .service-card.active {
+                transform: translateY(0);
+                box-shadow: 0 10px 30px rgba(136, 85, 187, 0.15);
+            }
+        }
+
+        button:focus-visible,
+        a:focus-visible,
+        input:focus-visible,
+        select:focus-visible,
+        textarea:focus-visible {
+            outline: 2px solid #8855BB;
+            outline-offset: 2px;
+        }
+
+        .sub-services-container {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-in-out;
+        }
+
+        .sub-services-container.expanded {
+            max-height: 2000px;
+        }
+
+        main {
+            width: 100%;
+            max-width: 100%;
+            overflow-x: hidden;
+        }
+
+        section {
+            width: 100%;
+            max-width: 100%;
+            overflow-x: hidden;
+        }
+        
+        #services-grid {
+            width: 100%;
+        }
     </style>
 </head>
 
